@@ -1,0 +1,26 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Serverpod
+.generated/
+lib/src/generated/
+protocol/generated/
+migrations/*.lock
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+.idea/
+.vscode/
+
+# Node / Web
+node_modules/

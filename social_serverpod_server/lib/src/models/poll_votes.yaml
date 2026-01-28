@@ -1,0 +1,11 @@
+class: PollVote
+table: poll_votes
+fields:
+  pollId: int
+  pollOptionId: int
+  userId: int
+  createdAt: DateTime?
+indexes:
+  poll_option_user_idx:
+    fields: pollOptionId, userId
+    unique: true

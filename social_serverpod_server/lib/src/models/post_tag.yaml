@@ -1,0 +1,9 @@
+class: PostTag
+table: post_tags
+fields:
+  postId: int
+  tagId: int
+indexes:
+  post_tag_idx:
+    fields: postId, tagId
+    unique: true

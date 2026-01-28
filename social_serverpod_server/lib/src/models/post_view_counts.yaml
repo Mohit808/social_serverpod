@@ -1,0 +1,7 @@
+class: PostViewCount
+table: post_view_counts
+fields:
+  postId: int
+  userId: int?
+  ipAddress: String?
+  viewedAt: DateTime?

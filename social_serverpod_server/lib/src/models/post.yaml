@@ -1,0 +1,29 @@
+class: Post
+table: posts
+fields:
+  userId: int?
+  text: String?
+  image: String?
+  location: String?
+  latitude: double?
+  longitude: double?
+  cityId: int?
+  description: String?
+  canReply: int?
+  isPublic: bool
+  likesCount: int
+  commentsCount: int
+  viewsCount: int
+  retweetCount: int
+  retweetedPostId: int?
+  pollId: int?
+  isDeleted: bool
+  isReported: bool
+  isArchived: bool
+  createdAt: DateTime?
+  updatedAt: DateTime?
+indexes:
+  latitude_idx:
+    fields: latitude
+  longitude_idx:
+    fields: longitude

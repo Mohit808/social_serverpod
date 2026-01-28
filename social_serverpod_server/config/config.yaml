@@ -1,0 +1,32 @@
+# Serverpod Server Configuration
+# Location: social_serverpod_server/config/config.yaml
+
+development:
+  # API Server settings
+  apiServer:
+    port: 8080
+    publicHost: localhost
+    publicPort: 8080
+    publicScheme: http
+
+  # Database settings
+  database:
+    host: localhost
+    port: 5432
+    name: social_serverpod
+    user: postgres
+    requireSsl: false
+
+production:
+  apiServer:
+    port: 8080
+    publicHost: your-domain.com
+    publicPort: 443
+    publicScheme: https
+
+  database:
+    host: localhost
+    port: 5432
+    name: social_serverpod_prod
+    user: postgres
+    requireSsl: true

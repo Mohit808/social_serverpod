@@ -1,0 +1,14 @@
+class: Notification
+table: notifications
+fields:
+  userId: int
+  senderId: int?
+  notificationType: String?
+  postId: int?
+  commentId: int?
+  replyCommentId: int?
+  pollId: int?
+  message: String?
+  isRead: bool
+  isArchived: bool
+  createdAt: DateTime?

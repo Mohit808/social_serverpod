@@ -1,0 +1,19 @@
+runMode: development
+serverId: default
+role: monolith
+
+database:
+  enabled: true
+  host: postgres
+  port: 5432
+  name: social_serverpod
+  user: postgres
+  password: password123
+
+  migrations:
+    enabled: true
+
+apiServer:
+  enabled: true
+  port: 8080
+  publicHost: 0.0.0.0

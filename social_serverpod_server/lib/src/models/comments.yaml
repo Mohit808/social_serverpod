@@ -1,0 +1,7 @@
+class: Comment
+table: comments
+fields:
+  userId: int?
+  postId: int?
+  text: String
+  createdAt: DateTime?

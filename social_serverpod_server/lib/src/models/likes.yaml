@@ -1,0 +1,9 @@
+class: Like
+table: likes
+fields:
+  userId: int?
+  postId: int
+indexes:
+  user_post_idx:
+    fields: userId, postId
+    unique: true

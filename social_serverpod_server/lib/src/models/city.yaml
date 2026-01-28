@@ -1,0 +1,8 @@
+class: City
+table: cities
+fields:
+  name: String
+  image: String?
+  division: String?
+  state: String?
+  country: String?

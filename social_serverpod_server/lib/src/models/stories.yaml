@@ -1,0 +1,10 @@
+class: Story
+table: stories
+fields:
+  userId: int
+  mediaUrl: String
+  mediaType: String
+  createdAt: DateTime?
+  expiresAt: DateTime?
+  latitude: String?
+  longitude: String?

@@ -1,0 +1,7 @@
+class: CommentReport
+table: comment_reports
+fields:
+  userId: int
+  commentId: int
+  reason: String
+  createdAt: DateTime?

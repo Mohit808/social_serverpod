@@ -1,0 +1,10 @@
+class: Follow
+table: follows
+fields:
+  followerId: int
+  followingId: int
+  createdAt: DateTime?
+indexes:
+  follower_following_idx:
+    fields: followerId, followingId
+    unique: true

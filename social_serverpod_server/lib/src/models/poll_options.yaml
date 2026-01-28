@@ -1,0 +1,7 @@
+class: PollOption
+table: poll_options
+fields:
+  pollId: int
+  text: String
+  order: int
+  voteCount: int

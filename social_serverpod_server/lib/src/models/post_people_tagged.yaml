@@ -1,0 +1,9 @@
+class: PostPeopleTagged
+table: post_people_tagged
+fields:
+  postId: int
+  userProfileId: int
+indexes:
+  post_user_idx:
+    fields: postId, userProfileId
+    unique: true

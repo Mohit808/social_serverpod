@@ -1,0 +1,12 @@
+class: Tag
+table: tags
+fields:
+  name: String
+  image: String?
+  color: String?
+  priority: int
+  createdAt: DateTime?
+indexes:
+  name_idx:
+    fields: name
+    unique: true

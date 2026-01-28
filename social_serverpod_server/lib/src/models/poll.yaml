@@ -1,0 +1,8 @@
+class: Poll
+table: polls
+fields:
+  userId: int?
+  question: String
+  isMultipleChoice: bool
+  expiresAt: DateTime?
+  createdAt: DateTime?

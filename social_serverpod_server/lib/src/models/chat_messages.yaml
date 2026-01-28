@@ -1,0 +1,15 @@
+class: ChatMessage
+table: chat_messages
+fields:
+  senderId: int
+  receiverId: int
+  message: String
+  type: String?
+  mediaType: String?
+  mediaUrl: String?
+  mediaSize: String?
+  replyId: int?
+  replyText: String?
+  replyUser: String?
+  read: bool
+  createdAt: DateTime?

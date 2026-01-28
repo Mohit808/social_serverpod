@@ -1,0 +1,7 @@
+class: Contact
+table: contacts
+fields:
+  userId: int
+  name: String?
+  number: String
+  addedAt: DateTime?

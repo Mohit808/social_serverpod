@@ -1,2 +1,4 @@
-greeting:
-  - hello:
+user:
+  - getUser:
+  - createUser:
+  - getAllUsers:

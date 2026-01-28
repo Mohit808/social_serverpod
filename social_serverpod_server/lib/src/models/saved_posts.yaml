@@ -1,0 +1,10 @@
+class: SavedPost
+table: saved_posts
+fields:
+  userId: int
+  postId: int
+  savedAt: DateTime?
+indexes:
+  user_post_saved_idx:
+    fields: userId, postId
+    unique: true

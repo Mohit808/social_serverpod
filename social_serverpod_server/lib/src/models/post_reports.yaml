@@ -1,0 +1,7 @@
+class: PostReport
+table: post_reports
+fields:
+  userId: int
+  postId: int
+  reason: String
+  createdAt: DateTime?

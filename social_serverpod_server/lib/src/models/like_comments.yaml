@@ -1,0 +1,6 @@
+class: LikeComment
+table: like_comments
+fields:
+  userId: int?
+  commentId: int?
+  createdAt: DateTime?

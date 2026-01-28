@@ -1,0 +1,14 @@
+class: UserProfile
+table: user_profiles
+fields:
+  userId: int?
+  name: String?
+  email: String?
+  phoneNumber: String?
+  image: String?
+  username: String?
+  isVerified: bool
+indexes:
+  username_idx:
+    fields: username
+    unique: true

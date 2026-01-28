@@ -1,0 +1,10 @@
+class: StoryViewCount
+table: story_view_counts
+fields:
+  storyId: int
+  viewerId: int
+  viewedAt: DateTime?
+indexes:
+  story_viewer_idx:
+    fields: storyId, viewerId
+    unique: true

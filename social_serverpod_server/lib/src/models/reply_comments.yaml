@@ -1,0 +1,7 @@
+class: ReplyComment
+table: reply_comments
+fields:
+  userId: int?
+  commentId: int?
+  text: String
+  createdAt: DateTime?

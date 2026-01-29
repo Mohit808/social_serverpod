@@ -12,6 +12,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/user_endpoint.dart' as _i2;
+import '../endpoints/user_profile_endpoint.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -21,6 +22,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'user',
+          null,
+        ),
+      'userProfile': _i3.UserProfileEndpoint()
+        ..initialize(
+          server,
+          'userProfile',
           null,
         ),
     };
@@ -79,6 +86,178 @@ class Endpoints extends _i1.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['user'] as _i2.UserEndpoint).getAllUsers(session),
+        ),
+      },
+    );
+    connectors['userProfile'] = _i1.EndpointConnector(
+      name: 'userProfile',
+      endpoint: endpoints['userProfile']!,
+      methodConnectors: {
+        'getProfile': _i1.MethodConnector(
+          name: 'getProfile',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['userProfile'] as _i3.UserProfileEndpoint)
+                  .getProfile(
+                    session,
+                    params['userId'],
+                  ),
+        ),
+        'updateProfile': _i1.MethodConnector(
+          name: 'updateProfile',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'phoneNumber': _i1.ParameterDescription(
+              name: 'phoneNumber',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'image': _i1.ParameterDescription(
+              name: 'image',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'username': _i1.ParameterDescription(
+              name: 'username',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['userProfile'] as _i3.UserProfileEndpoint)
+                  .updateProfile(
+                    session,
+                    userId: params['userId'],
+                    name: params['name'],
+                    email: params['email'],
+                    phoneNumber: params['phoneNumber'],
+                    image: params['image'],
+                    username: params['username'],
+                  ),
+        ),
+        'fullUpdateProfile': _i1.MethodConnector(
+          name: 'fullUpdateProfile',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'phoneNumber': _i1.ParameterDescription(
+              name: 'phoneNumber',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'image': _i1.ParameterDescription(
+              name: 'image',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'username': _i1.ParameterDescription(
+              name: 'username',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['userProfile'] as _i3.UserProfileEndpoint)
+                  .fullUpdateProfile(
+                    session,
+                    userId: params['userId'],
+                    name: params['name'],
+                    email: params['email'],
+                    phoneNumber: params['phoneNumber'],
+                    image: params['image'],
+                    username: params['username'],
+                  ),
+        ),
+        'createProfile': _i1.MethodConnector(
+          name: 'createProfile',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'phoneNumber': _i1.ParameterDescription(
+              name: 'phoneNumber',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'image': _i1.ParameterDescription(
+              name: 'image',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'username': _i1.ParameterDescription(
+              name: 'username',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['userProfile'] as _i3.UserProfileEndpoint)
+                  .createProfile(
+                    session,
+                    userId: params['userId'],
+                    name: params['name'],
+                    email: params['email'],
+                    phoneNumber: params['phoneNumber'],
+                    image: params['image'],
+                    username: params['username'],
+                  ),
         ),
       },
     );

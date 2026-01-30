@@ -135,6 +135,21 @@ class EndpointCity extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointLike extends _i1.EndpointRef {
+  EndpointLike(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'like';
+
+  _i2.Future<Map<String, dynamic>> likePost(String? post_id) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'like',
+        'likePost',
+        {'post_id': post_id},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointMap extends _i1.EndpointRef {
   EndpointMap(_i1.EndpointCaller caller) : super(caller);
 
@@ -243,6 +258,8 @@ class EndpointPost extends _i1.EndpointRef {
     bool? isPublic,
     int? retweetedPostId,
     int? pollId,
+    List<String>? tags,
+    List<String>? peopleTaqqed,
   }) => caller.callServerEndpoint<Map<String, dynamic>>(
     'post',
     'createPost',
@@ -260,8 +277,117 @@ class EndpointPost extends _i1.EndpointRef {
       'isPublic': isPublic,
       'retweetedPostId': retweetedPostId,
       'pollId': pollId,
+      'tags': tags,
+      'peopleTaqqed': peopleTaqqed,
     },
   );
+}
+
+/// {@category Endpoint}
+class EndpointSavedPost extends _i1.EndpointRef {
+  EndpointSavedPost(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'savedPost';
+
+  /// Toggle save/unsave a post for the authenticated user
+  _i2.Future<Map<String, dynamic>> toggleSavePost({required String? post_id}) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'savedPost',
+        'toggleSavePost',
+        {'post_id': post_id},
+      );
+
+  /// Get all saved posts for the authenticated user
+  _i2.Future<Map<String, dynamic>> getSavedPosts({
+    required int page,
+    required int pageSize,
+  }) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'savedPost',
+    'getSavedPosts',
+    {
+      'page': page,
+      'pageSize': pageSize,
+    },
+  );
+
+  /// Check if a post is saved by the authenticated user
+  _i2.Future<Map<String, dynamic>> checkIfPostSaved({required int postId}) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'savedPost',
+        'checkIfPostSaved',
+        {'postId': postId},
+      );
+
+  /// Get count of saved posts for the authenticated user
+  _i2.Future<Map<String, dynamic>> getSavedPostsCount() =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'savedPost',
+        'getSavedPostsCount',
+        {},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointTag extends _i1.EndpointRef {
+  EndpointTag(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'tag';
+
+  /// Get tags with optional filtering, search, and pagination
+  _i2.Future<Map<String, dynamic>> getTags({
+    String? search,
+    String? noImage,
+    String? hideCount,
+    String? page,
+  }) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'tag',
+    'getTags',
+    {
+      'search': search,
+      'noImage': noImage,
+      'hideCount': hideCount,
+      'page': page,
+    },
+  );
+
+  /// Get a single tag by ID
+  _i2.Future<Map<String, dynamic>> getTagById(int id) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'tag',
+        'getTagById',
+        {'id': id},
+      );
+
+  /// Create a new tag
+  _i2.Future<Map<String, dynamic>> createTag(Map<String, dynamic> tagData) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'tag',
+        'createTag',
+        {'tagData': tagData},
+      );
+
+  /// Update an existing tag
+  _i2.Future<Map<String, dynamic>> updateTag(
+    int id,
+    Map<String, dynamic> tagData,
+  ) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'tag',
+    'updateTag',
+    {
+      'id': id,
+      'tagData': tagData,
+    },
+  );
+
+  /// Delete a tag
+  _i2.Future<Map<String, dynamic>> deleteTag(int id) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'tag',
+        'deleteTag',
+        {'id': id},
+      );
 }
 
 /// {@category Endpoint}
@@ -426,9 +552,12 @@ class Client extends _i1.ServerpodClientShared {
     analysis = EndpointAnalysis(this);
     auth = EndpointAuth(this);
     city = EndpointCity(this);
+    like = EndpointLike(this);
     map = EndpointMap(this);
     poll = EndpointPoll(this);
     post = EndpointPost(this);
+    savedPost = EndpointSavedPost(this);
+    tag = EndpointTag(this);
     user = EndpointUser(this);
     userProfile = EndpointUserProfile(this);
     vote = EndpointVote(this);
@@ -441,11 +570,17 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointCity city;
 
+  late final EndpointLike like;
+
   late final EndpointMap map;
 
   late final EndpointPoll poll;
 
   late final EndpointPost post;
+
+  late final EndpointSavedPost savedPost;
+
+  late final EndpointTag tag;
 
   late final EndpointUser user;
 
@@ -460,9 +595,12 @@ class Client extends _i1.ServerpodClientShared {
     'analysis': analysis,
     'auth': auth,
     'city': city,
+    'like': like,
     'map': map,
     'poll': poll,
     'post': post,
+    'savedPost': savedPost,
+    'tag': tag,
     'user': user,
     'userProfile': userProfile,
     'vote': vote,

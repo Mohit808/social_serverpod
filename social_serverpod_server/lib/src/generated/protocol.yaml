@@ -7,6 +7,8 @@ city:
   - getCities:
   - createCity:
   - updateCity:
+like:
+  - likePost:
 map:
   - getMapData:
 poll:
@@ -16,6 +18,17 @@ poll:
 post:
   - getPosts:
   - createPost:
+savedPost:
+  - toggleSavePost:
+  - getSavedPosts:
+  - checkIfPostSaved:
+  - getSavedPostsCount:
+tag:
+  - getTags:
+  - getTagById:
+  - createTag:
+  - updateTag:
+  - deleteTag:
 user:
   - getUser:
   - createUser:

@@ -14,13 +14,16 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/analysis_endpoint.dart' as _i2;
 import '../endpoints/authentication.dart' as _i3;
 import '../endpoints/city_endpoint.dart' as _i4;
-import '../endpoints/map_endpoint.dart' as _i5;
-import '../endpoints/poll_endpoint.dart' as _i6;
-import '../endpoints/post_endpoint.dart' as _i7;
-import '../endpoints/user_endpoint.dart' as _i8;
-import '../endpoints/user_profile_endpoint.dart' as _i9;
-import '../endpoints/vote_endpoint.dart' as _i10;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i11;
+import '../endpoints/like_endpoint.dart' as _i5;
+import '../endpoints/map_endpoint.dart' as _i6;
+import '../endpoints/poll_endpoint.dart' as _i7;
+import '../endpoints/post_endpoint.dart' as _i8;
+import '../endpoints/saved_post_endpoint.dart' as _i9;
+import '../endpoints/tag_endpoint.dart' as _i10;
+import '../endpoints/user_endpoint.dart' as _i11;
+import '../endpoints/user_profile_endpoint.dart' as _i12;
+import '../endpoints/vote_endpoint.dart' as _i13;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i14;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -44,37 +47,55 @@ class Endpoints extends _i1.EndpointDispatch {
           'city',
           null,
         ),
-      'map': _i5.MapEndpoint()
+      'like': _i5.LikeEndpoint()
+        ..initialize(
+          server,
+          'like',
+          null,
+        ),
+      'map': _i6.MapEndpoint()
         ..initialize(
           server,
           'map',
           null,
         ),
-      'poll': _i6.PollEndpoint()
+      'poll': _i7.PollEndpoint()
         ..initialize(
           server,
           'poll',
           null,
         ),
-      'post': _i7.PostEndpoint()
+      'post': _i8.PostEndpoint()
         ..initialize(
           server,
           'post',
           null,
         ),
-      'user': _i8.UserEndpoint()
+      'savedPost': _i9.SavedPostEndpoint()
+        ..initialize(
+          server,
+          'savedPost',
+          null,
+        ),
+      'tag': _i10.TagEndpoint()
+        ..initialize(
+          server,
+          'tag',
+          null,
+        ),
+      'user': _i11.UserEndpoint()
         ..initialize(
           server,
           'user',
           null,
         ),
-      'userProfile': _i9.UserProfileEndpoint()
+      'userProfile': _i12.UserProfileEndpoint()
         ..initialize(
           server,
           'userProfile',
           null,
         ),
-      'vote': _i10.VoteEndpoint()
+      'vote': _i13.VoteEndpoint()
         ..initialize(
           server,
           'vote',
@@ -304,6 +325,30 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['like'] = _i1.EndpointConnector(
+      name: 'like',
+      endpoint: endpoints['like']!,
+      methodConnectors: {
+        'likePost': _i1.MethodConnector(
+          name: 'likePost',
+          params: {
+            'post_id': _i1.ParameterDescription(
+              name: 'post_id',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['like'] as _i5.LikeEndpoint).likePost(
+                session,
+                params['post_id'],
+              ),
+        ),
+      },
+    );
     connectors['map'] = _i1.EndpointConnector(
       name: 'map',
       endpoint: endpoints['map']!,
@@ -356,7 +401,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['map'] as _i5.MapEndpoint).getMapData(
+              ) async => (endpoints['map'] as _i6.MapEndpoint).getMapData(
                 session,
                 min_lat: params['min_lat'],
                 max_lat: params['max_lat'],
@@ -382,7 +427,7 @@ class Endpoints extends _i1.EndpointDispatch {
                 _i1.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['poll'] as _i6.PollEndpoint).getPolls(session),
+                  (endpoints['poll'] as _i7.PollEndpoint).getPolls(session),
         ),
         'createPoll': _i1.MethodConnector(
           name: 'createPoll',
@@ -402,7 +447,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['poll'] as _i6.PollEndpoint).createPoll(
+              ) async => (endpoints['poll'] as _i7.PollEndpoint).createPoll(
                 session,
                 question: params['question'],
                 options: params['options'],
@@ -421,7 +466,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['poll'] as _i6.PollEndpoint).deletePoll(
+              ) async => (endpoints['poll'] as _i7.PollEndpoint).deletePoll(
                 session,
                 pollId: params['pollId'],
               ),
@@ -460,7 +505,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['post'] as _i7.PostEndpoint).getPosts(
+              ) async => (endpoints['post'] as _i8.PostEndpoint).getPosts(
                 session,
                 city: params['city'],
                 tags: params['tags'],
@@ -536,12 +581,22 @@ class Endpoints extends _i1.EndpointDispatch {
               type: _i1.getType<int?>(),
               nullable: true,
             ),
+            'tags': _i1.ParameterDescription(
+              name: 'tags',
+              type: _i1.getType<List<String>?>(),
+              nullable: true,
+            ),
+            'peopleTaqqed': _i1.ParameterDescription(
+              name: 'peopleTaqqed',
+              type: _i1.getType<List<String>?>(),
+              nullable: true,
+            ),
           },
           call:
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['post'] as _i7.PostEndpoint).createPost(
+              ) async => (endpoints['post'] as _i8.PostEndpoint).createPost(
                 session,
                 text: params['text'],
                 image: params['image'],
@@ -556,6 +611,207 @@ class Endpoints extends _i1.EndpointDispatch {
                 isPublic: params['isPublic'],
                 retweetedPostId: params['retweetedPostId'],
                 pollId: params['pollId'],
+                tags: params['tags'],
+                peopleTaqqed: params['peopleTaqqed'],
+              ),
+        ),
+      },
+    );
+    connectors['savedPost'] = _i1.EndpointConnector(
+      name: 'savedPost',
+      endpoint: endpoints['savedPost']!,
+      methodConnectors: {
+        'toggleSavePost': _i1.MethodConnector(
+          name: 'toggleSavePost',
+          params: {
+            'post_id': _i1.ParameterDescription(
+              name: 'post_id',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['savedPost'] as _i9.SavedPostEndpoint)
+                  .toggleSavePost(
+                    session,
+                    post_id: params['post_id'],
+                  ),
+        ),
+        'getSavedPosts': _i1.MethodConnector(
+          name: 'getSavedPosts',
+          params: {
+            'page': _i1.ParameterDescription(
+              name: 'page',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'pageSize': _i1.ParameterDescription(
+              name: 'pageSize',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['savedPost'] as _i9.SavedPostEndpoint)
+                  .getSavedPosts(
+                    session,
+                    page: params['page'],
+                    pageSize: params['pageSize'],
+                  ),
+        ),
+        'checkIfPostSaved': _i1.MethodConnector(
+          name: 'checkIfPostSaved',
+          params: {
+            'postId': _i1.ParameterDescription(
+              name: 'postId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['savedPost'] as _i9.SavedPostEndpoint)
+                  .checkIfPostSaved(
+                    session,
+                    postId: params['postId'],
+                  ),
+        ),
+        'getSavedPostsCount': _i1.MethodConnector(
+          name: 'getSavedPostsCount',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['savedPost'] as _i9.SavedPostEndpoint)
+                  .getSavedPostsCount(session),
+        ),
+      },
+    );
+    connectors['tag'] = _i1.EndpointConnector(
+      name: 'tag',
+      endpoint: endpoints['tag']!,
+      methodConnectors: {
+        'getTags': _i1.MethodConnector(
+          name: 'getTags',
+          params: {
+            'search': _i1.ParameterDescription(
+              name: 'search',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'noImage': _i1.ParameterDescription(
+              name: 'noImage',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'hideCount': _i1.ParameterDescription(
+              name: 'hideCount',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'page': _i1.ParameterDescription(
+              name: 'page',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tag'] as _i10.TagEndpoint).getTags(
+                session,
+                search: params['search'],
+                noImage: params['noImage'],
+                hideCount: params['hideCount'],
+                page: params['page'],
+              ),
+        ),
+        'getTagById': _i1.MethodConnector(
+          name: 'getTagById',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tag'] as _i10.TagEndpoint).getTagById(
+                session,
+                params['id'],
+              ),
+        ),
+        'createTag': _i1.MethodConnector(
+          name: 'createTag',
+          params: {
+            'tagData': _i1.ParameterDescription(
+              name: 'tagData',
+              type: _i1.getType<Map<String, dynamic>>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tag'] as _i10.TagEndpoint).createTag(
+                session,
+                params['tagData'],
+              ),
+        ),
+        'updateTag': _i1.MethodConnector(
+          name: 'updateTag',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'tagData': _i1.ParameterDescription(
+              name: 'tagData',
+              type: _i1.getType<Map<String, dynamic>>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tag'] as _i10.TagEndpoint).updateTag(
+                session,
+                params['id'],
+                params['tagData'],
+              ),
+        ),
+        'deleteTag': _i1.MethodConnector(
+          name: 'deleteTag',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tag'] as _i10.TagEndpoint).deleteTag(
+                session,
+                params['id'],
               ),
         ),
       },
@@ -577,7 +833,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['user'] as _i8.UserEndpoint).getUser(
+              ) async => (endpoints['user'] as _i11.UserEndpoint).getUser(
                 session,
                 params['userId'],
               ),
@@ -600,7 +856,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['user'] as _i8.UserEndpoint).createUser(
+              ) async => (endpoints['user'] as _i11.UserEndpoint).createUser(
                 session,
                 params['name'],
                 params['image'],
@@ -614,7 +870,7 @@ class Endpoints extends _i1.EndpointDispatch {
                 _i1.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['user'] as _i8.UserEndpoint).getAllUsers(session),
+                  (endpoints['user'] as _i11.UserEndpoint).getAllUsers(session),
         ),
       },
     );
@@ -629,7 +885,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['userProfile'] as _i9.UserProfileEndpoint)
+              ) async => (endpoints['userProfile'] as _i12.UserProfileEndpoint)
                   .getProfile(session),
         ),
         'updateProfile': _i1.MethodConnector(
@@ -670,7 +926,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['userProfile'] as _i9.UserProfileEndpoint)
+              ) async => (endpoints['userProfile'] as _i12.UserProfileEndpoint)
                   .updateProfile(
                     session,
                     name: params['name'],
@@ -714,7 +970,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['userProfile'] as _i9.UserProfileEndpoint)
+              ) async => (endpoints['userProfile'] as _i12.UserProfileEndpoint)
                   .fullUpdateProfile(
                     session,
                     name: params['name'],
@@ -752,7 +1008,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['userProfile'] as _i9.UserProfileEndpoint)
+              ) async => (endpoints['userProfile'] as _i12.UserProfileEndpoint)
                   .createProfile(
                     session,
                     name: params['name'],
@@ -780,13 +1036,13 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vote'] as _i10.VoteEndpoint).vote(
+              ) async => (endpoints['vote'] as _i13.VoteEndpoint).vote(
                 session,
                 pollOptionId: params['pollOptionId'],
               ),
         ),
       },
     );
-    modules['serverpod_auth'] = _i11.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i14.Endpoints()..initializeEndpoints(server);
   }
 }

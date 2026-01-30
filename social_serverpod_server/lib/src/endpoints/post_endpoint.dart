@@ -21,7 +21,7 @@ class PostEndpoint extends Endpoint {
       }) async {
     var pageSize = 20;
 
-    var userId = int.parse("${userIdx ?? 1}");
+    var userId = int.parse("${1}");
     final userProfile = await UserProfile.db.findFirstRow(
       session,
       where: (t) => t.userId.equals(userId),
@@ -91,11 +91,11 @@ class PostEndpoint extends Endpoint {
           }),
         );
 
-        // // Check if liked
-        // final liked = await PostLike.db.findFirstRow(
-        //   session,
-        //   where: (t) => t.postId.equals(post.id!) & t.userId.equals(userId),
-        // );
+        // Check if liked
+        final liked = await Like.db.findFirstRow(
+          session,
+          where: (t) => t.postId.equals(post.id!) & t.userId.equals(userId),
+        );
 
         // Check if saved
         final savedPost = await SavedPost.db.findFirstRow(
@@ -124,7 +124,7 @@ class PostEndpoint extends Endpoint {
           } : null,
           'people_tagged': [],
           'poll': null,
-          // 'is_liked': liked != null,
+          'is_liked': liked != null,
           'is_saved': savedPost != null,
           'tag_list': tagList.where((t) => t != null).toList(),
           'text': post.text,
@@ -378,6 +378,108 @@ class PostEndpoint extends Endpoint {
   // }
 
   /// Create a new post
+  // Future<Map<String, dynamic>> createPost(
+  //     Session session, {
+  //       String? text,
+  //       String? image,
+  //       String? location,
+  //       double? latitude,
+  //       double? longitude,
+  //       String? city,
+  //       String? state,
+  //       String? country,
+  //       String? description,
+  //       int? canReply,
+  //       bool? isPublic,
+  //       int? retweetedPostId,
+  //       int? pollId,
+  //     }) async {
+  //   // Check authentication
+  //   // if (!await session.isUserSignedIn) {
+  //   //   throw Exception('User not authenticated');
+  //   // }
+  //
+  //   // final authenticatedUserId = await session.auth.authenticatedUserId;
+  //   // if (authenticatedUserId == null) {
+  //   //   throw Exception('User not authenticated');
+  //   // }
+  //   var userId=1;
+  //   // Get user profile
+  //   final userProfile = await UserProfile.db.findFirstRow(
+  //     session,
+  //     where: (t) => t.userId.equals(userId),
+  //   );
+  //
+  //   if (userProfile == null) {
+  //     throw Exception('User profile does not exist');
+  //   }
+  //
+  //   // Handle city
+  //   int? cityId;
+  //   if (city != null) {
+  //     var cityObj = await City.db.findFirstRow(
+  //       session,
+  //       where: (t) =>
+  //       t.name.equals(city) &
+  //       t.state.equals(state) &
+  //       t.country.equals(country),
+  //     );
+  //
+  //     cityObj ??= await City.db.insertRow(
+  //         session,
+  //         City(
+  //           name: city,
+  //           state: state,
+  //           country: country,
+  //         ),
+  //       );
+  //     cityId = cityObj.id;
+  //   }
+  //
+  //   // // Handle empty string to null conversion for coordinates
+  //   // final lat = latitude?.isEmpty ?? true
+  //   //     ? null
+  //   //     : double.tryParse(latitude!);
+  //   // final lon = longitude?.isEmpty ?? true
+  //   //     ? null
+  //   //     : double.tryParse(longitude!);
+  //
+  //   // Create post
+  //   final post = await Post.db.insertRow(
+  //     session,
+  //     Post(
+  //       userId: userId,
+  //       text: text,
+  //       image: image,
+  //       location: location,
+  //       latitude: latitude,
+  //       longitude: longitude,
+  //       cityId: cityId,
+  //       description: description,
+  //       canReply: canReply ?? 1,
+  //       isPublic: isPublic ?? true,
+  //       likesCount: 0,
+  //       commentsCount: 0,
+  //       viewsCount: 0,
+  //       retweetCount: 0,
+  //       retweetedPostId: retweetedPostId,
+  //       pollId: pollId,
+  //       isDeleted: false,
+  //       isReported: false,
+  //       isArchived: false,
+  //       createdAt: DateTime.now(),
+  //       updatedAt: DateTime.now(),
+  //     ),
+  //   );
+  //
+  //   return {
+  //     'data': post.toJson(),
+  //     'message': 'Post created successfully',
+  //     'status': 200,
+  //   };
+  // }
+
+
   Future<Map<String, dynamic>> createPost(
       Session session, {
         String? text,
@@ -393,6 +495,8 @@ class PostEndpoint extends Endpoint {
         bool? isPublic,
         int? retweetedPostId,
         int? pollId,
+        List<String>? tags, // Add tags parameter
+        List<String>? peopleTaqqed, // Add people_tagged if needed
       }) async {
     // Check authentication
     // if (!await session.isUserSignedIn) {
@@ -403,7 +507,8 @@ class PostEndpoint extends Endpoint {
     // if (authenticatedUserId == null) {
     //   throw Exception('User not authenticated');
     // }
-    var userId=1;
+    var userId = 1;
+
     // Get user profile
     final userProfile = await UserProfile.db.findFirstRow(
       session,
@@ -426,23 +531,15 @@ class PostEndpoint extends Endpoint {
       );
 
       cityObj ??= await City.db.insertRow(
-          session,
-          City(
-            name: city,
-            state: state,
-            country: country,
-          ),
-        );
+        session,
+        City(
+          name: city,
+          state: state,
+          country: country,
+        ),
+      );
       cityId = cityObj.id;
     }
-
-    // // Handle empty string to null conversion for coordinates
-    // final lat = latitude?.isEmpty ?? true
-    //     ? null
-    //     : double.tryParse(latitude!);
-    // final lon = longitude?.isEmpty ?? true
-    //     ? null
-    //     : double.tryParse(longitude!);
 
     // Create post
     final post = await Post.db.insertRow(
@@ -472,10 +569,69 @@ class PostEndpoint extends Endpoint {
       ),
     );
 
+    // Handle tags
+    if (tags != null && tags.isNotEmpty) {
+      await _createAndAssociateTags(session, post.id!, tags);
+    }
+
     return {
       'data': post.toJson(),
       'message': 'Post created successfully',
       'status': 200,
     };
   }
+
+  /// Create tags if they don't exist and associate them with the post
+  Future<void> _createAndAssociateTags(
+      Session session,
+      int postId,
+      List<String> tagNames,
+      ) async {
+    for (var tagName in tagNames) {
+      // Skip empty tag names
+      if (tagName.trim().isEmpty) continue;
+
+      final trimmedTagName = tagName.trim();
+
+      // Check if tag already exists
+      var tag = await Tag.db.findFirstRow(
+        session,
+        where: (t) => t.name.equals(trimmedTagName),
+      );
+
+      // Create tag if it doesn't exist
+      if (tag == null) {
+        tag = await Tag.db.insertRow(
+          session,
+          Tag(
+            name: trimmedTagName,
+            priority: 0,
+            createdAt: DateTime.now(),
+          ),
+        );
+      }
+
+      // Check if PostTag association already exists
+      final existingPostTag = await PostTag.db.findFirstRow(
+        session,
+        where: (pt) =>
+        pt.postId.equals(postId) &
+        pt.tagId.equals(tag!.id!),
+      );
+
+      // Create PostTag association if it doesn't exist
+      if (existingPostTag == null) {
+        await PostTag.db.insertRow(
+          session,
+          PostTag(
+            postId: postId,
+            tagId: tag.id!,
+            tagName: trimmedTagName,
+            // createdAt: DateTime.now(),
+          ),
+        );
+      }
+    }
+  }
+
 }

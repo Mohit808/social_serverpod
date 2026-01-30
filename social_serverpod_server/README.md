@@ -1,4 +1,4 @@
-My App
+Social Fabric - (Mobile app and backend in Dart and Flutter)
 
 Access: App is restricted. Request access via:
 📧 amityadav.ayx@gmail.com

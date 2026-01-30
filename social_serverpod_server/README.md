@@ -1,15 +1,13 @@
-# social_serverpod_server
+My App
 
-This is the starting point for your Serverpod server.
+Access: App is restricted. Request access via:
+📧 amityadav.ayx@gmail.com
++91 8858459011
 
-To run your server, you first need to start Postgres and Redis. It's easiest to do with Docker.
-
-    docker compose up --build --detach
-
-Then you can start the Serverpod server.
-
-    dart bin/main.dart
-
-When you are finished, you can shut down Serverpod with `Ctrl-C`, then stop Postgres and Redis.
-
-    docker compose stop
+APK & Video: Available upon request.
+[SocialFabric-3-v1.0.0.apk](../../../../Downloads/SocialFabric-3-v1.0.0.apk)
+[social_fabric_demo.mp4](../../../../Downloads/social_fabric_demo.mp4)
+![unnamed (1).png](../../../../Downloads/unnamed%20%281%29.png)
+![unnamed (2).png](../../../../Downloads/unnamed%20%282%29.png)
+![unnamed (3).png](../../../../Downloads/unnamed%20%283%29.png)
+![unnamed.png](../../../../Downloads/unnamed.png)

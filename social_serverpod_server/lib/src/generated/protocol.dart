@@ -12,31 +12,32 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'chat_messages.dart' as _i3;
-import 'city.dart' as _i4;
-import 'comment_reports.dart' as _i5;
-import 'comments.dart' as _i6;
-import 'contacts.dart' as _i7;
-import 'follows.dart' as _i8;
-import 'like_comments.dart' as _i9;
-import 'likes.dart' as _i10;
-import 'notifications.dart' as _i11;
-import 'poll.dart' as _i12;
-import 'poll_options.dart' as _i13;
-import 'poll_votes.dart' as _i14;
-import 'post.dart' as _i15;
-import 'post_people_tagged.dart' as _i16;
-import 'post_reports.dart' as _i17;
-import 'post_tag.dart' as _i18;
-import 'post_view_counts.dart' as _i19;
-import 'reply_comments.dart' as _i20;
-import 'saved_posts.dart' as _i21;
-import 'stories.dart' as _i22;
-import 'story_view_counts.dart' as _i23;
-import 'tag.dart' as _i24;
-import 'user.dart' as _i25;
-import 'user_profile.dart' as _i26;
-import 'package:social_serverpod_server/src/generated/user.dart' as _i27;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i3;
+import 'chat_messages.dart' as _i4;
+import 'city.dart' as _i5;
+import 'comment_reports.dart' as _i6;
+import 'comments.dart' as _i7;
+import 'contacts.dart' as _i8;
+import 'follows.dart' as _i9;
+import 'like_comments.dart' as _i10;
+import 'likes.dart' as _i11;
+import 'notifications.dart' as _i12;
+import 'poll.dart' as _i13;
+import 'poll_options.dart' as _i14;
+import 'poll_votes.dart' as _i15;
+import 'post.dart' as _i16;
+import 'post_people_tagged.dart' as _i17;
+import 'post_reports.dart' as _i18;
+import 'post_tag.dart' as _i19;
+import 'post_view_counts.dart' as _i20;
+import 'reply_comments.dart' as _i21;
+import 'saved_posts.dart' as _i22;
+import 'stories.dart' as _i23;
+import 'story_view_counts.dart' as _i24;
+import 'tag.dart' as _i25;
+import 'user.dart' as _i26;
+import 'user_profile.dart' as _i27;
+import 'package:social_serverpod_server/src/generated/user.dart' as _i28;
 export 'chat_messages.dart';
 export 'city.dart';
 export 'comment_reports.dart';
@@ -1759,6 +1760,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    ..._i3.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
   ];
 
@@ -1789,153 +1791,162 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
 
-    if (t == _i3.ChatMessage) {
-      return _i3.ChatMessage.fromJson(data) as T;
+    if (t == _i4.ChatMessage) {
+      return _i4.ChatMessage.fromJson(data) as T;
     }
-    if (t == _i4.City) {
-      return _i4.City.fromJson(data) as T;
+    if (t == _i5.City) {
+      return _i5.City.fromJson(data) as T;
     }
-    if (t == _i5.CommentReport) {
-      return _i5.CommentReport.fromJson(data) as T;
+    if (t == _i6.CommentReport) {
+      return _i6.CommentReport.fromJson(data) as T;
     }
-    if (t == _i6.Comment) {
-      return _i6.Comment.fromJson(data) as T;
+    if (t == _i7.Comment) {
+      return _i7.Comment.fromJson(data) as T;
     }
-    if (t == _i7.Contact) {
-      return _i7.Contact.fromJson(data) as T;
+    if (t == _i8.Contact) {
+      return _i8.Contact.fromJson(data) as T;
     }
-    if (t == _i8.Follow) {
-      return _i8.Follow.fromJson(data) as T;
+    if (t == _i9.Follow) {
+      return _i9.Follow.fromJson(data) as T;
     }
-    if (t == _i9.LikeComment) {
-      return _i9.LikeComment.fromJson(data) as T;
+    if (t == _i10.LikeComment) {
+      return _i10.LikeComment.fromJson(data) as T;
     }
-    if (t == _i10.Like) {
-      return _i10.Like.fromJson(data) as T;
+    if (t == _i11.Like) {
+      return _i11.Like.fromJson(data) as T;
     }
-    if (t == _i11.Notification) {
-      return _i11.Notification.fromJson(data) as T;
+    if (t == _i12.Notification) {
+      return _i12.Notification.fromJson(data) as T;
     }
-    if (t == _i12.Poll) {
-      return _i12.Poll.fromJson(data) as T;
+    if (t == _i13.Poll) {
+      return _i13.Poll.fromJson(data) as T;
     }
-    if (t == _i13.PollOption) {
-      return _i13.PollOption.fromJson(data) as T;
+    if (t == _i14.PollOption) {
+      return _i14.PollOption.fromJson(data) as T;
     }
-    if (t == _i14.PollVote) {
-      return _i14.PollVote.fromJson(data) as T;
+    if (t == _i15.PollVote) {
+      return _i15.PollVote.fromJson(data) as T;
     }
-    if (t == _i15.Post) {
-      return _i15.Post.fromJson(data) as T;
+    if (t == _i16.Post) {
+      return _i16.Post.fromJson(data) as T;
     }
-    if (t == _i16.PostPeopleTagged) {
-      return _i16.PostPeopleTagged.fromJson(data) as T;
+    if (t == _i17.PostPeopleTagged) {
+      return _i17.PostPeopleTagged.fromJson(data) as T;
     }
-    if (t == _i17.PostReport) {
-      return _i17.PostReport.fromJson(data) as T;
+    if (t == _i18.PostReport) {
+      return _i18.PostReport.fromJson(data) as T;
     }
-    if (t == _i18.PostTag) {
-      return _i18.PostTag.fromJson(data) as T;
+    if (t == _i19.PostTag) {
+      return _i19.PostTag.fromJson(data) as T;
     }
-    if (t == _i19.PostViewCount) {
-      return _i19.PostViewCount.fromJson(data) as T;
+    if (t == _i20.PostViewCount) {
+      return _i20.PostViewCount.fromJson(data) as T;
     }
-    if (t == _i20.ReplyComment) {
-      return _i20.ReplyComment.fromJson(data) as T;
+    if (t == _i21.ReplyComment) {
+      return _i21.ReplyComment.fromJson(data) as T;
     }
-    if (t == _i21.SavedPost) {
-      return _i21.SavedPost.fromJson(data) as T;
+    if (t == _i22.SavedPost) {
+      return _i22.SavedPost.fromJson(data) as T;
     }
-    if (t == _i22.Story) {
-      return _i22.Story.fromJson(data) as T;
+    if (t == _i23.Story) {
+      return _i23.Story.fromJson(data) as T;
     }
-    if (t == _i23.StoryViewCount) {
-      return _i23.StoryViewCount.fromJson(data) as T;
+    if (t == _i24.StoryViewCount) {
+      return _i24.StoryViewCount.fromJson(data) as T;
     }
-    if (t == _i24.Tag) {
-      return _i24.Tag.fromJson(data) as T;
+    if (t == _i25.Tag) {
+      return _i25.Tag.fromJson(data) as T;
     }
-    if (t == _i25.User) {
-      return _i25.User.fromJson(data) as T;
+    if (t == _i26.User) {
+      return _i26.User.fromJson(data) as T;
     }
-    if (t == _i26.UserProfile) {
-      return _i26.UserProfile.fromJson(data) as T;
+    if (t == _i27.UserProfile) {
+      return _i27.UserProfile.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i3.ChatMessage?>()) {
-      return (data != null ? _i3.ChatMessage.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i4.ChatMessage?>()) {
+      return (data != null ? _i4.ChatMessage.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i4.City?>()) {
-      return (data != null ? _i4.City.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.City?>()) {
+      return (data != null ? _i5.City.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.CommentReport?>()) {
-      return (data != null ? _i5.CommentReport.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.CommentReport?>()) {
+      return (data != null ? _i6.CommentReport.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Comment?>()) {
-      return (data != null ? _i6.Comment.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i7.Comment?>()) {
+      return (data != null ? _i7.Comment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i7.Contact?>()) {
-      return (data != null ? _i7.Contact.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i8.Contact?>()) {
+      return (data != null ? _i8.Contact.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i8.Follow?>()) {
-      return (data != null ? _i8.Follow.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.Follow?>()) {
+      return (data != null ? _i9.Follow.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.LikeComment?>()) {
-      return (data != null ? _i9.LikeComment.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i10.LikeComment?>()) {
+      return (data != null ? _i10.LikeComment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i10.Like?>()) {
-      return (data != null ? _i10.Like.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i11.Like?>()) {
+      return (data != null ? _i11.Like.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i11.Notification?>()) {
-      return (data != null ? _i11.Notification.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i12.Notification?>()) {
+      return (data != null ? _i12.Notification.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i12.Poll?>()) {
-      return (data != null ? _i12.Poll.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i13.Poll?>()) {
+      return (data != null ? _i13.Poll.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i13.PollOption?>()) {
-      return (data != null ? _i13.PollOption.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i14.PollOption?>()) {
+      return (data != null ? _i14.PollOption.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i14.PollVote?>()) {
-      return (data != null ? _i14.PollVote.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.PollVote?>()) {
+      return (data != null ? _i15.PollVote.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i15.Post?>()) {
-      return (data != null ? _i15.Post.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i16.Post?>()) {
+      return (data != null ? _i16.Post.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i16.PostPeopleTagged?>()) {
-      return (data != null ? _i16.PostPeopleTagged.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i17.PostPeopleTagged?>()) {
+      return (data != null ? _i17.PostPeopleTagged.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i17.PostReport?>()) {
-      return (data != null ? _i17.PostReport.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i18.PostReport?>()) {
+      return (data != null ? _i18.PostReport.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i18.PostTag?>()) {
-      return (data != null ? _i18.PostTag.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i19.PostTag?>()) {
+      return (data != null ? _i19.PostTag.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i19.PostViewCount?>()) {
-      return (data != null ? _i19.PostViewCount.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i20.PostViewCount?>()) {
+      return (data != null ? _i20.PostViewCount.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i20.ReplyComment?>()) {
-      return (data != null ? _i20.ReplyComment.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i21.ReplyComment?>()) {
+      return (data != null ? _i21.ReplyComment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i21.SavedPost?>()) {
-      return (data != null ? _i21.SavedPost.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i22.SavedPost?>()) {
+      return (data != null ? _i22.SavedPost.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i22.Story?>()) {
-      return (data != null ? _i22.Story.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i23.Story?>()) {
+      return (data != null ? _i23.Story.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i23.StoryViewCount?>()) {
-      return (data != null ? _i23.StoryViewCount.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i24.StoryViewCount?>()) {
+      return (data != null ? _i24.StoryViewCount.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i24.Tag?>()) {
-      return (data != null ? _i24.Tag.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i25.Tag?>()) {
+      return (data != null ? _i25.Tag.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i25.User?>()) {
-      return (data != null ? _i25.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i26.User?>()) {
+      return (data != null ? _i26.User.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i26.UserProfile?>()) {
-      return (data != null ? _i26.UserProfile.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i27.UserProfile?>()) {
+      return (data != null ? _i27.UserProfile.fromJson(data) : null) as T;
     }
-    if (t == List<_i27.User>) {
-      return (data as List).map((e) => deserialize<_i27.User>(e)).toList() as T;
+    if (t == Map<String, dynamic>) {
+      return (data as Map).map(
+            (k, v) => MapEntry(deserialize<String>(k), deserialize<dynamic>(v)),
+          )
+          as T;
     }
+    if (t == List<_i28.User>) {
+      return (data as List).map((e) => deserialize<_i28.User>(e)).toList() as T;
+    }
+    try {
+      return _i3.Protocol().deserialize<T>(data, t);
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     try {
       return _i2.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
@@ -1944,30 +1955,30 @@ class Protocol extends _i1.SerializationManagerServer {
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
-      _i3.ChatMessage => 'ChatMessage',
-      _i4.City => 'City',
-      _i5.CommentReport => 'CommentReport',
-      _i6.Comment => 'Comment',
-      _i7.Contact => 'Contact',
-      _i8.Follow => 'Follow',
-      _i9.LikeComment => 'LikeComment',
-      _i10.Like => 'Like',
-      _i11.Notification => 'Notification',
-      _i12.Poll => 'Poll',
-      _i13.PollOption => 'PollOption',
-      _i14.PollVote => 'PollVote',
-      _i15.Post => 'Post',
-      _i16.PostPeopleTagged => 'PostPeopleTagged',
-      _i17.PostReport => 'PostReport',
-      _i18.PostTag => 'PostTag',
-      _i19.PostViewCount => 'PostViewCount',
-      _i20.ReplyComment => 'ReplyComment',
-      _i21.SavedPost => 'SavedPost',
-      _i22.Story => 'Story',
-      _i23.StoryViewCount => 'StoryViewCount',
-      _i24.Tag => 'Tag',
-      _i25.User => 'User',
-      _i26.UserProfile => 'UserProfile',
+      _i4.ChatMessage => 'ChatMessage',
+      _i5.City => 'City',
+      _i6.CommentReport => 'CommentReport',
+      _i7.Comment => 'Comment',
+      _i8.Contact => 'Contact',
+      _i9.Follow => 'Follow',
+      _i10.LikeComment => 'LikeComment',
+      _i11.Like => 'Like',
+      _i12.Notification => 'Notification',
+      _i13.Poll => 'Poll',
+      _i14.PollOption => 'PollOption',
+      _i15.PollVote => 'PollVote',
+      _i16.Post => 'Post',
+      _i17.PostPeopleTagged => 'PostPeopleTagged',
+      _i18.PostReport => 'PostReport',
+      _i19.PostTag => 'PostTag',
+      _i20.PostViewCount => 'PostViewCount',
+      _i21.ReplyComment => 'ReplyComment',
+      _i22.SavedPost => 'SavedPost',
+      _i23.Story => 'Story',
+      _i24.StoryViewCount => 'StoryViewCount',
+      _i25.Tag => 'Tag',
+      _i26.User => 'User',
+      _i27.UserProfile => 'UserProfile',
       _ => null,
     };
   }
@@ -1985,58 +1996,62 @@ class Protocol extends _i1.SerializationManagerServer {
     }
 
     switch (data) {
-      case _i3.ChatMessage():
+      case _i4.ChatMessage():
         return 'ChatMessage';
-      case _i4.City():
+      case _i5.City():
         return 'City';
-      case _i5.CommentReport():
+      case _i6.CommentReport():
         return 'CommentReport';
-      case _i6.Comment():
+      case _i7.Comment():
         return 'Comment';
-      case _i7.Contact():
+      case _i8.Contact():
         return 'Contact';
-      case _i8.Follow():
+      case _i9.Follow():
         return 'Follow';
-      case _i9.LikeComment():
+      case _i10.LikeComment():
         return 'LikeComment';
-      case _i10.Like():
+      case _i11.Like():
         return 'Like';
-      case _i11.Notification():
+      case _i12.Notification():
         return 'Notification';
-      case _i12.Poll():
+      case _i13.Poll():
         return 'Poll';
-      case _i13.PollOption():
+      case _i14.PollOption():
         return 'PollOption';
-      case _i14.PollVote():
+      case _i15.PollVote():
         return 'PollVote';
-      case _i15.Post():
+      case _i16.Post():
         return 'Post';
-      case _i16.PostPeopleTagged():
+      case _i17.PostPeopleTagged():
         return 'PostPeopleTagged';
-      case _i17.PostReport():
+      case _i18.PostReport():
         return 'PostReport';
-      case _i18.PostTag():
+      case _i19.PostTag():
         return 'PostTag';
-      case _i19.PostViewCount():
+      case _i20.PostViewCount():
         return 'PostViewCount';
-      case _i20.ReplyComment():
+      case _i21.ReplyComment():
         return 'ReplyComment';
-      case _i21.SavedPost():
+      case _i22.SavedPost():
         return 'SavedPost';
-      case _i22.Story():
+      case _i23.Story():
         return 'Story';
-      case _i23.StoryViewCount():
+      case _i24.StoryViewCount():
         return 'StoryViewCount';
-      case _i24.Tag():
+      case _i25.Tag():
         return 'Tag';
-      case _i25.User():
+      case _i26.User():
         return 'User';
-      case _i26.UserProfile():
+      case _i27.UserProfile():
         return 'UserProfile';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod.$className';
+    }
+    className = _i3.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
     }
     return null;
   }
@@ -2048,80 +2063,84 @@ class Protocol extends _i1.SerializationManagerServer {
       return super.deserializeByClassName(data);
     }
     if (dataClassName == 'ChatMessage') {
-      return deserialize<_i3.ChatMessage>(data['data']);
+      return deserialize<_i4.ChatMessage>(data['data']);
     }
     if (dataClassName == 'City') {
-      return deserialize<_i4.City>(data['data']);
+      return deserialize<_i5.City>(data['data']);
     }
     if (dataClassName == 'CommentReport') {
-      return deserialize<_i5.CommentReport>(data['data']);
+      return deserialize<_i6.CommentReport>(data['data']);
     }
     if (dataClassName == 'Comment') {
-      return deserialize<_i6.Comment>(data['data']);
+      return deserialize<_i7.Comment>(data['data']);
     }
     if (dataClassName == 'Contact') {
-      return deserialize<_i7.Contact>(data['data']);
+      return deserialize<_i8.Contact>(data['data']);
     }
     if (dataClassName == 'Follow') {
-      return deserialize<_i8.Follow>(data['data']);
+      return deserialize<_i9.Follow>(data['data']);
     }
     if (dataClassName == 'LikeComment') {
-      return deserialize<_i9.LikeComment>(data['data']);
+      return deserialize<_i10.LikeComment>(data['data']);
     }
     if (dataClassName == 'Like') {
-      return deserialize<_i10.Like>(data['data']);
+      return deserialize<_i11.Like>(data['data']);
     }
     if (dataClassName == 'Notification') {
-      return deserialize<_i11.Notification>(data['data']);
+      return deserialize<_i12.Notification>(data['data']);
     }
     if (dataClassName == 'Poll') {
-      return deserialize<_i12.Poll>(data['data']);
+      return deserialize<_i13.Poll>(data['data']);
     }
     if (dataClassName == 'PollOption') {
-      return deserialize<_i13.PollOption>(data['data']);
+      return deserialize<_i14.PollOption>(data['data']);
     }
     if (dataClassName == 'PollVote') {
-      return deserialize<_i14.PollVote>(data['data']);
+      return deserialize<_i15.PollVote>(data['data']);
     }
     if (dataClassName == 'Post') {
-      return deserialize<_i15.Post>(data['data']);
+      return deserialize<_i16.Post>(data['data']);
     }
     if (dataClassName == 'PostPeopleTagged') {
-      return deserialize<_i16.PostPeopleTagged>(data['data']);
+      return deserialize<_i17.PostPeopleTagged>(data['data']);
     }
     if (dataClassName == 'PostReport') {
-      return deserialize<_i17.PostReport>(data['data']);
+      return deserialize<_i18.PostReport>(data['data']);
     }
     if (dataClassName == 'PostTag') {
-      return deserialize<_i18.PostTag>(data['data']);
+      return deserialize<_i19.PostTag>(data['data']);
     }
     if (dataClassName == 'PostViewCount') {
-      return deserialize<_i19.PostViewCount>(data['data']);
+      return deserialize<_i20.PostViewCount>(data['data']);
     }
     if (dataClassName == 'ReplyComment') {
-      return deserialize<_i20.ReplyComment>(data['data']);
+      return deserialize<_i21.ReplyComment>(data['data']);
     }
     if (dataClassName == 'SavedPost') {
-      return deserialize<_i21.SavedPost>(data['data']);
+      return deserialize<_i22.SavedPost>(data['data']);
     }
     if (dataClassName == 'Story') {
-      return deserialize<_i22.Story>(data['data']);
+      return deserialize<_i23.Story>(data['data']);
     }
     if (dataClassName == 'StoryViewCount') {
-      return deserialize<_i23.StoryViewCount>(data['data']);
+      return deserialize<_i24.StoryViewCount>(data['data']);
     }
     if (dataClassName == 'Tag') {
-      return deserialize<_i24.Tag>(data['data']);
+      return deserialize<_i25.Tag>(data['data']);
     }
     if (dataClassName == 'User') {
-      return deserialize<_i25.User>(data['data']);
+      return deserialize<_i26.User>(data['data']);
     }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i26.UserProfile>(data['data']);
+      return deserialize<_i27.UserProfile>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
       return _i2.Protocol().deserializeByClassName(data);
+    }
+    if (dataClassName.startsWith('serverpod_auth.')) {
+      data['className'] = dataClassName.substring(15);
+      return _i3.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
@@ -2129,60 +2148,66 @@ class Protocol extends _i1.SerializationManagerServer {
   @override
   _i1.Table? getTableForType(Type t) {
     {
+      var table = _i3.Protocol().getTableForType(t);
+      if (table != null) {
+        return table;
+      }
+    }
+    {
       var table = _i2.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }
     }
     switch (t) {
-      case _i3.ChatMessage:
-        return _i3.ChatMessage.t;
-      case _i4.City:
-        return _i4.City.t;
-      case _i5.CommentReport:
-        return _i5.CommentReport.t;
-      case _i6.Comment:
-        return _i6.Comment.t;
-      case _i7.Contact:
-        return _i7.Contact.t;
-      case _i8.Follow:
-        return _i8.Follow.t;
-      case _i9.LikeComment:
-        return _i9.LikeComment.t;
-      case _i10.Like:
-        return _i10.Like.t;
-      case _i11.Notification:
-        return _i11.Notification.t;
-      case _i12.Poll:
-        return _i12.Poll.t;
-      case _i13.PollOption:
-        return _i13.PollOption.t;
-      case _i14.PollVote:
-        return _i14.PollVote.t;
-      case _i15.Post:
-        return _i15.Post.t;
-      case _i16.PostPeopleTagged:
-        return _i16.PostPeopleTagged.t;
-      case _i17.PostReport:
-        return _i17.PostReport.t;
-      case _i18.PostTag:
-        return _i18.PostTag.t;
-      case _i19.PostViewCount:
-        return _i19.PostViewCount.t;
-      case _i20.ReplyComment:
-        return _i20.ReplyComment.t;
-      case _i21.SavedPost:
-        return _i21.SavedPost.t;
-      case _i22.Story:
-        return _i22.Story.t;
-      case _i23.StoryViewCount:
-        return _i23.StoryViewCount.t;
-      case _i24.Tag:
-        return _i24.Tag.t;
-      case _i25.User:
-        return _i25.User.t;
-      case _i26.UserProfile:
-        return _i26.UserProfile.t;
+      case _i4.ChatMessage:
+        return _i4.ChatMessage.t;
+      case _i5.City:
+        return _i5.City.t;
+      case _i6.CommentReport:
+        return _i6.CommentReport.t;
+      case _i7.Comment:
+        return _i7.Comment.t;
+      case _i8.Contact:
+        return _i8.Contact.t;
+      case _i9.Follow:
+        return _i9.Follow.t;
+      case _i10.LikeComment:
+        return _i10.LikeComment.t;
+      case _i11.Like:
+        return _i11.Like.t;
+      case _i12.Notification:
+        return _i12.Notification.t;
+      case _i13.Poll:
+        return _i13.Poll.t;
+      case _i14.PollOption:
+        return _i14.PollOption.t;
+      case _i15.PollVote:
+        return _i15.PollVote.t;
+      case _i16.Post:
+        return _i16.Post.t;
+      case _i17.PostPeopleTagged:
+        return _i17.PostPeopleTagged.t;
+      case _i18.PostReport:
+        return _i18.PostReport.t;
+      case _i19.PostTag:
+        return _i19.PostTag.t;
+      case _i20.PostViewCount:
+        return _i20.PostViewCount.t;
+      case _i21.ReplyComment:
+        return _i21.ReplyComment.t;
+      case _i22.SavedPost:
+        return _i22.SavedPost.t;
+      case _i23.Story:
+        return _i23.Story.t;
+      case _i24.StoryViewCount:
+        return _i24.StoryViewCount.t;
+      case _i25.Tag:
+        return _i25.Tag.t;
+      case _i26.User:
+        return _i26.User.t;
+      case _i27.UserProfile:
+        return _i27.UserProfile.t;
     }
     return null;
   }
@@ -2204,7 +2229,7 @@ class Protocol extends _i1.SerializationManagerServer {
       return null;
     }
     try {
-      return _i2.Protocol().mapRecordToJson(record);
+      return _i3.Protocol().mapRecordToJson(record);
     } catch (_) {}
     throw Exception('Unsupported record type ${record.runtimeType}');
   }

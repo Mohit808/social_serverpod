@@ -36,6 +36,7 @@ import 'tag.dart' as _i23;
 import 'user.dart' as _i24;
 import 'user_profile.dart' as _i25;
 import 'package:social_serverpod_client/src/protocol/user.dart' as _i26;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i27;
 export 'chat_messages.dart';
 export 'city.dart';
 export 'comment_reports.dart';
@@ -240,9 +241,18 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i25.UserProfile?>()) {
       return (data != null ? _i25.UserProfile.fromJson(data) : null) as T;
     }
+    if (t == Map<String, dynamic>) {
+      return (data as Map).map(
+            (k, v) => MapEntry(deserialize<String>(k), deserialize<dynamic>(v)),
+          )
+          as T;
+    }
     if (t == List<_i26.User>) {
       return (data as List).map((e) => deserialize<_i26.User>(e)).toList() as T;
     }
+    try {
+      return _i27.Protocol().deserialize<T>(data, t);
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
@@ -338,6 +348,10 @@ class Protocol extends _i1.SerializationManager {
       case _i25.UserProfile():
         return 'UserProfile';
     }
+    className = _i27.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
+    }
     return null;
   }
 
@@ -419,6 +433,10 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'UserProfile') {
       return deserialize<_i25.UserProfile>(data['data']);
     }
+    if (dataClassName.startsWith('serverpod_auth.')) {
+      data['className'] = dataClassName.substring(15);
+      return _i27.Protocol().deserializeByClassName(data);
+    }
     return super.deserializeByClassName(data);
   }
 
@@ -431,6 +449,9 @@ class Protocol extends _i1.SerializationManager {
     if (record == null) {
       return null;
     }
+    try {
+      return _i27.Protocol().mapRecordToJson(record);
+    } catch (_) {}
     throw Exception('Unsupported record type ${record.runtimeType}');
   }
 }

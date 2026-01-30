@@ -1,15 +1,24 @@
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/serverpod_auth_server.dart';
 import '../generated/protocol.dart';
 
 
 class UserProfileEndpoint extends Endpoint {
 
-  Future<UserProfile?> getProfile(Session session, String userId) async {
+  Future<UserProfile?> getProfile(Session session) async {
     try {
-      int userIdX = int.parse(userId);
+      final authenticatedUser = session.authenticated;
+
+      if (authenticatedUser == null) {
+        throw Exception('Unauthorized: You must be logged in to create a profile');
+      }
+
+      // Use the authenticated user's ID instead of passing it as parameter
+      final userId = authenticatedUser.userId;
+
       var profile = await UserProfile.db.findFirstRow(
         session,
-        where: (t) => t.userId.equals(userIdX),
+        where: (t) => t.userId.equals(userId),
       );
 
       if (profile == null) {
@@ -22,20 +31,30 @@ class UserProfileEndpoint extends Endpoint {
     }
   }
 
-  Future<UserProfile> updateProfile(
+  Future<Object> updateProfile(
     Session session, {
-    required int userId,
     String? name,
     String? email,
     String? phoneNumber,
     String? image,
     String? username,
+    String? userIdx,
   }) async {
     // Validate required field
     if (name == null || name.isEmpty) {
       throw Exception('Name is required');
     }
 
+    // final authenticatedUser = session.authenticated;
+    //
+    // if (authenticatedUser == null) {
+    //   throw Exception('Unauthorized: You must be logged in to create a profile');
+    // }
+
+    // Use the authenticated user's ID instead of passing it as parameter
+    // final userId = authenticatedUser.userId;
+
+    int userId=int.parse("${userIdx??1}");
     try {
       // Find existing profile
       var profile = await UserProfile.db.findFirstRow(
@@ -66,7 +85,25 @@ class UserProfileEndpoint extends Endpoint {
       }
 
       // Save updated profile
+      // var updated = await UserProfile.db.updateRow(session, profile);
+
+
       var updated = await UserProfile.db.updateRow(session, profile);
+
+      return {
+        'message': 'User profile updated successfully.',
+        'status': 200,
+        'data': {
+          'id': updated.id,
+          'name': updated.name,
+          'email': updated.email,
+          'phone_number': updated.phoneNumber,
+          'image': updated.image,
+          'username': updated.username,
+          'is_verified': updated.isVerified,
+          'user_id': updated.userId,
+        }
+      };
       return updated;
     } catch (e) {
       if (e.toString().contains('does not exist')) {
@@ -78,7 +115,6 @@ class UserProfileEndpoint extends Endpoint {
 
   Future<UserProfile> fullUpdateProfile(
     Session session, {
-    required int userId,
     String? name,
     String? email,
     String? phoneNumber,
@@ -86,6 +122,16 @@ class UserProfileEndpoint extends Endpoint {
     String? username,
   }) async {
     try {
+
+      final authenticatedUser = session.authenticated;
+
+      if (authenticatedUser == null) {
+        throw Exception('Unauthorized: You must be logged in to create a profile');
+      }
+
+      // Use the authenticated user's ID instead of passing it as parameter
+      final userId = authenticatedUser.userId;
+
       // Find existing profile
       var profile = await UserProfile.db.findFirstRow(
         session,
@@ -107,7 +153,7 @@ class UserProfileEndpoint extends Endpoint {
           session,
           where: (t) => t.username.equals(username) & t.id.notEquals(profile.id!),
         );
-        
+
         if (existingUsername != null) {
           throw Exception('Username already exists');
         }
@@ -124,14 +170,36 @@ class UserProfileEndpoint extends Endpoint {
 
   Future<UserProfile> createProfile(
     Session session, {
-    required int userId,
     required String name,
     String? email,
     String? phoneNumber,
     String? image,
-    String? username,
+    // String? username,
   }) async {
-    
+
+    // print('Headers: ${session.authenticated?.authId}');
+    // print('Headers: ${session.authenticated?.userId}');
+
+    // final authenticatedUser =  session.authenticated;
+    // print(authenticatedUser?.authId);
+    // print(authenticatedUser?.userId);
+    //
+    // if (authenticatedUser == null) {
+    //   throw Exception('Unauthorized: You must be logged in to create a profile');
+    // }
+    //
+    // // Use the authenticated user's ID instead of passing it as parameter
+    // final userId = await authenticatedUser.userId;
+
+    // final userId=510;
+
+    final lastUser = await UserProfile.db.findFirstRow(
+      session,
+      orderBy: (t) => t.id,
+      orderDescending: true,
+    );
+    var userId=lastUser!.id!+1;
+
     var existing = await UserProfile.db.findFirstRow(
       session,
       where: (t) => t.userId.equals(userId),
@@ -142,14 +210,14 @@ class UserProfileEndpoint extends Endpoint {
     }
 
     // Check if username is taken
-    var existingUsername = await UserProfile.db.findFirstRow(
-      session,
-      where: (t) => t.username.equals(username),
-    );
+    // var existingUsername = await UserProfile.db.findFirstRow(
+    //   session,
+    //   where: (t) => t.username.equals(username),
+    // );
 
-    if (existingUsername != null) {
-      throw Exception('Username already exists');
-    }
+    // if (existingUsername != null) {
+    //   throw Exception('Username already exists');
+    // }
 
     // Create new profile
     var profile = UserProfile(
@@ -158,7 +226,7 @@ class UserProfileEndpoint extends Endpoint {
       email: email,
       phoneNumber: phoneNumber,
       image: image,
-      username: username,
+      // username: username,
       isVerified: false,
     );
 

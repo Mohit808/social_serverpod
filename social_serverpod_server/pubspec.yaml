@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   serverpod: 3.2.3
+  serverpod_auth_server : any
 
 dev_dependencies:
   lints: '>=3.0.0 <7.0.0'

@@ -14,7 +14,42 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:social_serverpod_client/src/protocol/user.dart' as _i3;
 import 'package:social_serverpod_client/src/protocol/user_profile.dart' as _i4;
-import 'protocol.dart' as _i5;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i5;
+import 'protocol.dart' as _i6;
+
+/// {@category Endpoint}
+class EndpointAuth extends _i1.EndpointRef {
+  EndpointAuth(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'auth';
+
+  _i2.Future<Map<String, dynamic>> emailSignUp(
+    String email,
+    String password,
+    String userName,
+  ) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'auth',
+    'emailSignUp',
+    {
+      'email': email,
+      'password': password,
+      'userName': userName,
+    },
+  );
+
+  _i2.Future<Map<String, dynamic>> emailLogin(
+    String email,
+    String password,
+  ) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'auth',
+    'emailLogin',
+    {
+      'email': email,
+      'password': password,
+    },
+  );
+}
 
 /// {@category Endpoint}
 class EndpointUser extends _i1.EndpointRef {
@@ -60,35 +95,34 @@ class EndpointUserProfile extends _i1.EndpointRef {
   @override
   String get name => 'userProfile';
 
-  _i2.Future<_i4.UserProfile?> getProfile(String userId) =>
+  _i2.Future<_i4.UserProfile?> getProfile() =>
       caller.callServerEndpoint<_i4.UserProfile?>(
         'userProfile',
         'getProfile',
-        {'userId': userId},
+        {},
       );
 
   _i2.Future<_i4.UserProfile> updateProfile({
-    required int userId,
     String? name,
     String? email,
     String? phoneNumber,
     String? image,
     String? username,
+    String? userIdx,
   }) => caller.callServerEndpoint<_i4.UserProfile>(
     'userProfile',
     'updateProfile',
     {
-      'userId': userId,
       'name': name,
       'email': email,
       'phoneNumber': phoneNumber,
       'image': image,
       'username': username,
+      'userIdx': userIdx,
     },
   );
 
   _i2.Future<_i4.UserProfile> fullUpdateProfile({
-    required int userId,
     String? name,
     String? email,
     String? phoneNumber,
@@ -98,7 +132,6 @@ class EndpointUserProfile extends _i1.EndpointRef {
     'userProfile',
     'fullUpdateProfile',
     {
-      'userId': userId,
       'name': name,
       'email': email,
       'phoneNumber': phoneNumber,
@@ -108,24 +141,28 @@ class EndpointUserProfile extends _i1.EndpointRef {
   );
 
   _i2.Future<_i4.UserProfile> createProfile({
-    required int userId,
     required String name,
     String? email,
     String? phoneNumber,
     String? image,
-    String? username,
   }) => caller.callServerEndpoint<_i4.UserProfile>(
     'userProfile',
     'createProfile',
     {
-      'userId': userId,
       'name': name,
       'email': email,
       'phoneNumber': phoneNumber,
       'image': image,
-      'username': username,
     },
   );
+}
+
+class Modules {
+  Modules(Client client) {
+    auth = _i5.Caller(client);
+  }
+
+  late final _i5.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -148,7 +185,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
          host,
-         _i5.Protocol(),
+         _i6.Protocol(),
          securityContext: securityContext,
          streamingConnectionTimeout: streamingConnectionTimeout,
          connectionTimeout: connectionTimeout,
@@ -157,20 +194,29 @@ class Client extends _i1.ServerpodClientShared {
          disconnectStreamsOnLostInternetConnection:
              disconnectStreamsOnLostInternetConnection,
        ) {
+    auth = EndpointAuth(this);
     user = EndpointUser(this);
     userProfile = EndpointUserProfile(this);
+    modules = Modules(this);
   }
+
+  late final EndpointAuth auth;
 
   late final EndpointUser user;
 
   late final EndpointUserProfile userProfile;
 
+  late final Modules modules;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
+    'auth': auth,
     'user': user,
     'userProfile': userProfile,
   };
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {
+    'auth': modules.auth,
+  };
 }

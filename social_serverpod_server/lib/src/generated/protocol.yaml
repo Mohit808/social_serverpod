@@ -1,3 +1,6 @@
+auth:
+  - emailSignUp:
+  - emailLogin:
 user:
   - getUser:
   - createUser:

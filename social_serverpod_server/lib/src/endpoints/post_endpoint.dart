@@ -7,7 +7,6 @@ import '../generated/protocol.dart';
 
 class PostEndpoint extends Endpoint {
 
-
   Future<Map<String, dynamic>> getPosts(
       Session session, {
         String? city,

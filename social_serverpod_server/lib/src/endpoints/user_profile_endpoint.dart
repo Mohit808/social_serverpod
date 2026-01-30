@@ -198,7 +198,7 @@ class UserProfileEndpoint extends Endpoint {
       orderBy: (t) => t.id,
       orderDescending: true,
     );
-    var userId=lastUser!.id!+1;
+    var userId = (lastUser?.id ?? 0) + 1;
 
     var existing = await UserProfile.db.findFirstRow(
       session,

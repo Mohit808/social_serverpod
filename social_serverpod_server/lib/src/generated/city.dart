@@ -20,6 +20,8 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     this.division,
     this.state,
     this.country,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory City({
@@ -29,6 +31,8 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _CityImpl;
 
   factory City.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -39,6 +43,12 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       division: jsonSerialization['division'] as String?,
       state: jsonSerialization['state'] as String?,
       country: jsonSerialization['country'] as String?,
+      createdAt: jsonSerialization['createdAt'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
+      updatedAt: jsonSerialization['updatedAt'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['updatedAt']),
     );
   }
 
@@ -59,6 +69,10 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   String? country;
 
+  DateTime? createdAt;
+
+  DateTime? updatedAt;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -72,6 +86,8 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -83,6 +99,8 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (division != null) 'division': division,
       if (state != null) 'state': state,
       if (country != null) 'country': country,
+      if (createdAt != null) 'createdAt': createdAt?.toJson(),
+      if (updatedAt != null) 'updatedAt': updatedAt?.toJson(),
     };
   }
 
@@ -96,6 +114,8 @@ abstract class City implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (division != null) 'division': division,
       if (state != null) 'state': state,
       if (country != null) 'country': country,
+      if (createdAt != null) 'createdAt': createdAt?.toJson(),
+      if (updatedAt != null) 'updatedAt': updatedAt?.toJson(),
     };
   }
 
@@ -139,6 +159,8 @@ class _CityImpl extends City {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) : super._(
          id: id,
          name: name,
@@ -146,6 +168,8 @@ class _CityImpl extends City {
          division: division,
          state: state,
          country: country,
+         createdAt: createdAt,
+         updatedAt: updatedAt,
        );
 
   /// Returns a shallow copy of this [City]
@@ -159,6 +183,8 @@ class _CityImpl extends City {
     Object? division = _Undefined,
     Object? state = _Undefined,
     Object? country = _Undefined,
+    Object? createdAt = _Undefined,
+    Object? updatedAt = _Undefined,
   }) {
     return City(
       id: id is int? ? id : this.id,
@@ -167,6 +193,8 @@ class _CityImpl extends City {
       division: division is String? ? division : this.division,
       state: state is String? ? state : this.state,
       country: country is String? ? country : this.country,
+      createdAt: createdAt is DateTime? ? createdAt : this.createdAt,
+      updatedAt: updatedAt is DateTime? ? updatedAt : this.updatedAt,
     );
   }
 }
@@ -198,6 +226,18 @@ class CityUpdateTable extends _i1.UpdateTable<CityTable> {
     table.country,
     value,
   );
+
+  _i1.ColumnValue<DateTime, DateTime> createdAt(DateTime? value) =>
+      _i1.ColumnValue(
+        table.createdAt,
+        value,
+      );
+
+  _i1.ColumnValue<DateTime, DateTime> updatedAt(DateTime? value) =>
+      _i1.ColumnValue(
+        table.updatedAt,
+        value,
+      );
 }
 
 class CityTable extends _i1.Table<int?> {
@@ -223,6 +263,14 @@ class CityTable extends _i1.Table<int?> {
       'country',
       this,
     );
+    createdAt = _i1.ColumnDateTime(
+      'createdAt',
+      this,
+    );
+    updatedAt = _i1.ColumnDateTime(
+      'updatedAt',
+      this,
+    );
   }
 
   late final CityUpdateTable updateTable;
@@ -237,6 +285,10 @@ class CityTable extends _i1.Table<int?> {
 
   late final _i1.ColumnString country;
 
+  late final _i1.ColumnDateTime createdAt;
+
+  late final _i1.ColumnDateTime updatedAt;
+
   @override
   List<_i1.Column> get columns => [
     id,
@@ -245,6 +297,8 @@ class CityTable extends _i1.Table<int?> {
     division,
     state,
     country,
+    createdAt,
+    updatedAt,
   ];
 }
 

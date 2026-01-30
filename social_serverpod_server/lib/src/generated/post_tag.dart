@@ -18,12 +18,14 @@ abstract class PostTag
     this.id,
     required this.postId,
     required this.tagId,
+    required this.tagName,
   });
 
   factory PostTag({
     int? id,
     required int postId,
     required int tagId,
+    required String tagName,
   }) = _PostTagImpl;
 
   factory PostTag.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -31,6 +33,7 @@ abstract class PostTag
       id: jsonSerialization['id'] as int?,
       postId: jsonSerialization['postId'] as int,
       tagId: jsonSerialization['tagId'] as int,
+      tagName: jsonSerialization['tagName'] as String,
     );
   }
 
@@ -45,6 +48,8 @@ abstract class PostTag
 
   int tagId;
 
+  String tagName;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -55,6 +60,7 @@ abstract class PostTag
     int? id,
     int? postId,
     int? tagId,
+    String? tagName,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -63,6 +69,7 @@ abstract class PostTag
       if (id != null) 'id': id,
       'postId': postId,
       'tagId': tagId,
+      'tagName': tagName,
     };
   }
 
@@ -73,6 +80,7 @@ abstract class PostTag
       if (id != null) 'id': id,
       'postId': postId,
       'tagId': tagId,
+      'tagName': tagName,
     };
   }
 
@@ -113,10 +121,12 @@ class _PostTagImpl extends PostTag {
     int? id,
     required int postId,
     required int tagId,
+    required String tagName,
   }) : super._(
          id: id,
          postId: postId,
          tagId: tagId,
+         tagName: tagName,
        );
 
   /// Returns a shallow copy of this [PostTag]
@@ -127,11 +137,13 @@ class _PostTagImpl extends PostTag {
     Object? id = _Undefined,
     int? postId,
     int? tagId,
+    String? tagName,
   }) {
     return PostTag(
       id: id is int? ? id : this.id,
       postId: postId ?? this.postId,
       tagId: tagId ?? this.tagId,
+      tagName: tagName ?? this.tagName,
     );
   }
 }
@@ -148,6 +160,11 @@ class PostTagUpdateTable extends _i1.UpdateTable<PostTagTable> {
     table.tagId,
     value,
   );
+
+  _i1.ColumnValue<String, String> tagName(String value) => _i1.ColumnValue(
+    table.tagName,
+    value,
+  );
 }
 
 class PostTagTable extends _i1.Table<int?> {
@@ -161,6 +178,10 @@ class PostTagTable extends _i1.Table<int?> {
       'tagId',
       this,
     );
+    tagName = _i1.ColumnString(
+      'tagName',
+      this,
+    );
   }
 
   late final PostTagUpdateTable updateTable;
@@ -169,11 +190,14 @@ class PostTagTable extends _i1.Table<int?> {
 
   late final _i1.ColumnInt tagId;
 
+  late final _i1.ColumnString tagName;
+
   @override
   List<_i1.Column> get columns => [
     id,
     postId,
     tagId,
+    tagName,
   ];
 }
 

@@ -17,12 +17,14 @@ abstract class PostTag implements _i1.SerializableModel {
     this.id,
     required this.postId,
     required this.tagId,
+    required this.tagName,
   });
 
   factory PostTag({
     int? id,
     required int postId,
     required int tagId,
+    required String tagName,
   }) = _PostTagImpl;
 
   factory PostTag.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -30,6 +32,7 @@ abstract class PostTag implements _i1.SerializableModel {
       id: jsonSerialization['id'] as int?,
       postId: jsonSerialization['postId'] as int,
       tagId: jsonSerialization['tagId'] as int,
+      tagName: jsonSerialization['tagName'] as String,
     );
   }
 
@@ -42,6 +45,8 @@ abstract class PostTag implements _i1.SerializableModel {
 
   int tagId;
 
+  String tagName;
+
   /// Returns a shallow copy of this [PostTag]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -49,6 +54,7 @@ abstract class PostTag implements _i1.SerializableModel {
     int? id,
     int? postId,
     int? tagId,
+    String? tagName,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -57,6 +63,7 @@ abstract class PostTag implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'postId': postId,
       'tagId': tagId,
+      'tagName': tagName,
     };
   }
 
@@ -73,10 +80,12 @@ class _PostTagImpl extends PostTag {
     int? id,
     required int postId,
     required int tagId,
+    required String tagName,
   }) : super._(
          id: id,
          postId: postId,
          tagId: tagId,
+         tagName: tagName,
        );
 
   /// Returns a shallow copy of this [PostTag]
@@ -87,11 +96,13 @@ class _PostTagImpl extends PostTag {
     Object? id = _Undefined,
     int? postId,
     int? tagId,
+    String? tagName,
   }) {
     return PostTag(
       id: id is int? ? id : this.id,
       postId: postId ?? this.postId,
       tagId: tagId ?? this.tagId,
+      tagName: tagName ?? this.tagName,
     );
   }
 }

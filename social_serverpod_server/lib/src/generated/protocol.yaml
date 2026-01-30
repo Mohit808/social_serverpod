@@ -1,6 +1,21 @@
+analysis:
+  - getTags:
 auth:
   - emailSignUp:
   - emailLogin:
+city:
+  - getCities:
+  - createCity:
+  - updateCity:
+map:
+  - getMapData:
+poll:
+  - getPolls:
+  - createPoll:
+  - deletePoll:
+post:
+  - getPosts:
+  - createPost:
 user:
   - getUser:
   - createUser:
@@ -10,3 +25,5 @@ userProfile:
   - updateProfile:
   - fullUpdateProfile:
   - createProfile:
+vote:
+  - vote:

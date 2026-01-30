@@ -1,9 +1,13 @@
+# lib/src/protocol/post_tag.yaml
 class: PostTag
 table: post_tags
 fields:
   postId: int
   tagId: int
+  tagName: String
 indexes:
   post_tag_idx:
     fields: postId, tagId
     unique: true
+  tag_name_idx:
+    fields: tagName

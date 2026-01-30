@@ -20,6 +20,8 @@ abstract class City implements _i1.SerializableModel {
     this.division,
     this.state,
     this.country,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory City({
@@ -29,6 +31,8 @@ abstract class City implements _i1.SerializableModel {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _CityImpl;
 
   factory City.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -39,6 +43,12 @@ abstract class City implements _i1.SerializableModel {
       division: jsonSerialization['division'] as String?,
       state: jsonSerialization['state'] as String?,
       country: jsonSerialization['country'] as String?,
+      createdAt: jsonSerialization['createdAt'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
+      updatedAt: jsonSerialization['updatedAt'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['updatedAt']),
     );
   }
 
@@ -57,6 +67,10 @@ abstract class City implements _i1.SerializableModel {
 
   String? country;
 
+  DateTime? createdAt;
+
+  DateTime? updatedAt;
+
   /// Returns a shallow copy of this [City]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -67,6 +81,8 @@ abstract class City implements _i1.SerializableModel {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -78,6 +94,8 @@ abstract class City implements _i1.SerializableModel {
       if (division != null) 'division': division,
       if (state != null) 'state': state,
       if (country != null) 'country': country,
+      if (createdAt != null) 'createdAt': createdAt?.toJson(),
+      if (updatedAt != null) 'updatedAt': updatedAt?.toJson(),
     };
   }
 
@@ -97,6 +115,8 @@ class _CityImpl extends City {
     String? division,
     String? state,
     String? country,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) : super._(
          id: id,
          name: name,
@@ -104,6 +124,8 @@ class _CityImpl extends City {
          division: division,
          state: state,
          country: country,
+         createdAt: createdAt,
+         updatedAt: updatedAt,
        );
 
   /// Returns a shallow copy of this [City]
@@ -117,6 +139,8 @@ class _CityImpl extends City {
     Object? division = _Undefined,
     Object? state = _Undefined,
     Object? country = _Undefined,
+    Object? createdAt = _Undefined,
+    Object? updatedAt = _Undefined,
   }) {
     return City(
       id: id is int? ? id : this.id,
@@ -125,6 +149,8 @@ class _CityImpl extends City {
       division: division is String? ? division : this.division,
       state: state is String? ? state : this.state,
       country: country is String? ? country : this.country,
+      createdAt: createdAt is DateTime? ? createdAt : this.createdAt,
+      updatedAt: updatedAt is DateTime? ? updatedAt : this.updatedAt,
     );
   }
 }

@@ -1,3 +1,4 @@
+# lib/src/protocol/city.yaml
 class: City
 table: cities
 fields:
@@ -6,3 +7,5 @@ fields:
   division: String?
   state: String?
   country: String?
+  createdAt: DateTime?
+  updatedAt: DateTime?

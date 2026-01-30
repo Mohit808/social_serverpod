@@ -329,6 +329,45 @@ class EndpointSavedPost extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointStory extends _i1.EndpointRef {
+  EndpointStory(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'story';
+
+  /// Create a new story
+  _i2.Future<Map<String, dynamic>> createStory({
+    required String media_url,
+    String? latitude,
+    String? longitude,
+  }) => caller.callServerEndpoint<Map<String, dynamic>>(
+    'story',
+    'createStory',
+    {
+      'media_url': media_url,
+      'latitude': latitude,
+      'longitude': longitude,
+    },
+  );
+
+  /// Get all stories (my stories + other users' stories)
+  _i2.Future<Map<String, dynamic>> getStories({required String page}) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'story',
+        'getStories',
+        {'page': page},
+      );
+
+  /// Delete a story
+  _i2.Future<Map<String, dynamic>> deleteStory(int storyId) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'story',
+        'deleteStory',
+        {'storyId': storyId},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointTag extends _i1.EndpointRef {
   EndpointTag(_i1.EndpointCaller caller) : super(caller);
 
@@ -557,6 +596,7 @@ class Client extends _i1.ServerpodClientShared {
     poll = EndpointPoll(this);
     post = EndpointPost(this);
     savedPost = EndpointSavedPost(this);
+    story = EndpointStory(this);
     tag = EndpointTag(this);
     user = EndpointUser(this);
     userProfile = EndpointUserProfile(this);
@@ -580,6 +620,8 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointSavedPost savedPost;
 
+  late final EndpointStory story;
+
   late final EndpointTag tag;
 
   late final EndpointUser user;
@@ -600,6 +642,7 @@ class Client extends _i1.ServerpodClientShared {
     'poll': poll,
     'post': post,
     'savedPost': savedPost,
+    'story': story,
     'tag': tag,
     'user': user,
     'userProfile': userProfile,

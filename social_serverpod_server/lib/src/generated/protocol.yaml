@@ -23,6 +23,10 @@ savedPost:
   - getSavedPosts:
   - checkIfPostSaved:
   - getSavedPostsCount:
+story:
+  - createStory:
+  - getStories:
+  - deleteStory:
 tag:
   - getTags:
   - getTagById:
